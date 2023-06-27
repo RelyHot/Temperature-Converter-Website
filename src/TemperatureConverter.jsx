@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const TemperatureConverter = () => {
-  const [inputValue, setInputValue] = useState('');
-  const [inputUnit, setInputUnit] = useState('Celsius');
-  const [outputUnit, setOutputUnit] = useState('Fahrenheit');
-  const [result, setResult] = useState('');
+  const [inputValue, setInputValue] = useState("");
+  const [inputUnit, setInputUnit] = useState("Celsius");
+  const [outputUnit, setOutputUnit] = useState("Fahrenheit");
+  const [result, setResult] = useState("");
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -22,48 +22,55 @@ const TemperatureConverter = () => {
     const inputTemp = parseFloat(inputValue);
 
     if (isNaN(inputTemp)) {
-      setResult('Invalid input');
+      setResult("Invalid input");
       return;
     }
 
     let outputTemp;
 
     switch (inputUnit) {
-      case 'Celsius':
-        if (outputUnit === 'Fahrenheit') {
+      case "Celsius":
+        if (outputUnit === "Fahrenheit") {
           outputTemp = (inputTemp * 9) / 5 + 32;
-        } else if (outputUnit === 'Kelvin') {
+        } else if (outputUnit === "Kelvin") {
           outputTemp = inputTemp + 273.15;
+        } else if (outputUnit === "Celsius") {
+          outputTemp = inputTemp;
         }
         break;
 
-      case 'Fahrenheit':
-        if (outputUnit === 'Celsius') {
+      case "Fahrenheit":
+        if (outputUnit === "Celsius") {
           outputTemp = ((inputTemp - 32) * 5) / 9;
-        } else if (outputUnit === 'Kelvin') {
+        } else if (outputUnit === "Kelvin") {
           outputTemp = ((inputTemp - 32) * 5) / 9 + 273.15;
+        } else if (outputUnit === "Fahrenheit") {
+          outputTemp = inputTemp;
         }
         break;
 
-      case 'Kelvin':
-        if (outputUnit === 'Celsius') {
+      case "Kelvin":
+        if (outputUnit === "Celsius") {
           outputTemp = inputTemp - 273.15;
-        } else if (outputUnit === 'Fahrenheit') {
+        } else if (outputUnit === "Fahrenheit") {
           outputTemp = ((inputTemp - 273.15) * 9) / 5 + 32;
+        } else if (outputUnit === "Kelvin") {
+          outputTemp = inputTemp;
         }
         break;
 
       default:
-        setResult('Invalid units');
+        setResult("Invalid units");
         return;
     }
 
-    setResult(`${inputTemp} ${inputUnit} = ${outputTemp.toFixed(2)} ${outputUnit}`);
+    setResult(
+      `${inputTemp} ${inputUnit} = ${outputTemp.toFixed(2)} ${outputUnit}`
+    );
   };
 
   return (
     <div>
-      <h2>Temperature Converter</h2>
       <div>
         <label>
           Input Temperature:
