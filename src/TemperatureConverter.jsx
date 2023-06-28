@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./TemperatureConverter.css";
 
 const TemperatureConverter = () => {
   const [inputValue, setInputValue] = useState("");
@@ -65,40 +66,63 @@ const TemperatureConverter = () => {
     }
 
     setResult(
-      `${inputTemp} ${inputUnit} = ${outputTemp.toFixed(2)} ${outputUnit}`
+      `${inputTemp}°${inputUnit} = ${outputTemp.toFixed(2)}°${outputUnit}`
     );
   };
 
+  const handleReset = () => {
+    setInputValue("");
+    setResult("");
+  };
+
   return (
-    <div>
-      <div>
-        <label>
-          Input Temperature:
-          <input type="text" value={inputValue} onChange={handleInputChange} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Convert from:
-          <select value={inputUnit} onChange={handleInputUnitChange}>
+    <div className="wrapper">
+      <div className="container">
+        <div>
+          <label className="label">Convert from:</label>
+          <select
+            className="select-field"
+            value={inputUnit}
+            onChange={handleInputUnitChange}
+          >
             <option value="Celsius">Celsius</option>
             <option value="Fahrenheit">Fahrenheit</option>
             <option value="Kelvin">Kelvin</option>
           </select>
-        </label>
-      </div>
-      <div>
-        <label>
-          Convert to:
-          <select value={outputUnit} onChange={handleOutputUnitChange}>
+        </div>
+        <div>
+          <label className="label">Input Temperature:</label>
+          <input
+            type="text"
+            className="input-field"
+            value={inputValue}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label className="label">Convert to:</label>
+          <select
+            className="select-field"
+            value={outputUnit}
+            onChange={handleOutputUnitChange}
+          >
             <option value="Celsius">Celsius</option>
             <option value="Fahrenheit">Fahrenheit</option>
             <option value="Kelvin">Kelvin</option>
           </select>
-        </label>
+        </div>
+        <button className="button" onClick={convertTemperature}>
+          Convert
+        </button>
+        {result && (
+          <div className="result-dialog">
+            <span>{result}</span>
+            <button className="close-button" onClick={handleReset}>
+              &times;
+            </button>
+          </div>
+        )}
       </div>
-      <button onClick={convertTemperature}>Convert</button>
-      <div>{result}</div>
     </div>
   );
 };
